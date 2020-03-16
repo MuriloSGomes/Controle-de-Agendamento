@@ -1,5 +1,5 @@
 create Table Cliente (
-	clienteId int not null auto_increment,
+    clienteId int not null auto_increment,
     clienteNome varchar(100),
     clienteTelefone varchar(12),
     clienteCpf varchar(11),
@@ -7,7 +7,6 @@ create Table Cliente (
     clienteTemConvenio bool,
     clienteNumeroConvenio varchar(100),
     clienteNomeConvenio varchar(50),
-    clienteAtendimentoId int,
     primary key (clienteid),
-    foreign key (clienteAtendimentoId) references agendamento(atendimentoId)
+    foreign key (clienteId) references agendamento(agendamentoId)
 );
