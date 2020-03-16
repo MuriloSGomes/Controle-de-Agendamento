@@ -1,6 +1,6 @@
 create Table Agendamento (
-	atendimentoId int not null auto_increment,
-    atendimentoSituacao char(1),
-    atendimentoData date,
-    primary key (atendimentoId)
+    agendamentoId int not null auto_increment,
+    agendamentoSituacao char(1),
+    agendamentoData date,
+    primary key (agendamentoId)
 );
