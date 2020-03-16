@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMedicControl", "Sch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMedicControl.Business", "..\ScheduleMedicControl.Business\ScheduleMedicControl.Business.csproj", "{830B2E16-BD99-4C1D-8E85-D44186671CBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleMedicControl.DATA", "..\ScheduleMedicControl.DATA\ScheduleMedicControl.DATA.csproj", "{28D82945-7435-439B-BB6E-9B96818AC519}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{830B2E16-BD99-4C1D-8E85-D44186671CBE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{830B2E16-BD99-4C1D-8E85-D44186671CBE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{830B2E16-BD99-4C1D-8E85-D44186671CBE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D82945-7435-439B-BB6E-9B96818AC519}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D82945-7435-439B-BB6E-9B96818AC519}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D82945-7435-439B-BB6E-9B96818AC519}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D82945-7435-439B-BB6E-9B96818AC519}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
