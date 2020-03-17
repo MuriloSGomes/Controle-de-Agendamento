@@ -8,5 +8,4 @@ create Table Cliente (
     clienteNumeroConvenio varchar(100),
     clienteNomeConvenio varchar(50),
     primary key (clienteid),
-    foreign key (clienteId) references agendamento(agendamentoId)
 );
