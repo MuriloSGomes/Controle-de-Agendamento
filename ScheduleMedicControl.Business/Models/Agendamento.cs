@@ -9,5 +9,9 @@ namespace ScheduleMedicControl.Business.Models
     public class Agendamento
     {
         public int Id { get; set; }
+        public EnumeradorSituacaoAgendamento SituacaoAgendamento { get; set; }
+        public DateTime Data { get; set; }
+        public Cliente Cliente { get; set; }
+        public Clinica Clinica { get; set; }
     }
 }

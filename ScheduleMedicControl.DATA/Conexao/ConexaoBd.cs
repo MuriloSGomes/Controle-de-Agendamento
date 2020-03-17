@@ -15,7 +15,7 @@ namespace ScheduleMedicControl.DATA.Conexao
         {
             try
             {
-                Con = new MySqlConnection(WebConfigurationManager.ConnectionStrings["controleagendamento"].ConnectionString);
+                Con = new MySqlConnection(WebConfigurationManager.ConnectionStrings["controleatendimento"].ConnectionString);
                 Con.Open();
             }
             catch (Exception e)

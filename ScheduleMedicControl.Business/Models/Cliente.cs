@@ -19,7 +19,5 @@ namespace ScheduleMedicControl.Business.Models
         public bool TemConvenio { get; set; }
         public string NumeroConvenio { get; set; }
         public string NomeConvenio { get; set; }
-        public Agendamento AgendamentoId { get; set; }
-        public virtual Agendamento Agendamento { get; set; }
     }
 }
