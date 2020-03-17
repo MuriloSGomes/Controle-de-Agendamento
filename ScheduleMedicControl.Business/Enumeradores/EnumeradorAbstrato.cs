@@ -5,13 +5,13 @@ using System.Reflection;
 
 namespace ScheduleMedicControl.Business.Enumeradores
 {
-    public abstract class EnumeradorSeguro : IComparable
+    public abstract class EnumeradorAbstrato : IComparable
     {
         public string Descricao { get; private set; }
 
         public int Id { get; private set; }
 
-        protected EnumeradorSeguro(int id, string descricao)
+        protected EnumeradorAbstrato(int id, string descricao)
         {
             Id = id;
             Descricao = descricao;
@@ -19,7 +19,7 @@ namespace ScheduleMedicControl.Business.Enumeradores
 
         public override string ToString() => Descricao;
 
-        public static IEnumerable<T> ObtenhaTodos<T>() where T : EnumeradorSeguro
+        public static IEnumerable<T> ObtenhaTodos<T>() where T : EnumeradorAbstrato
         {
             var fields = typeof(T).GetFields(BindingFlags.Public |
                                              BindingFlags.Static |
@@ -30,7 +30,7 @@ namespace ScheduleMedicControl.Business.Enumeradores
 
         public override bool Equals(object enumeradorHerdado)
         {
-            var enumerador = enumeradorHerdado as EnumeradorSeguro;
+            var enumerador = enumeradorHerdado as EnumeradorAbstrato;
 
             if (enumerador == null)
                 return false;
@@ -46,7 +46,7 @@ namespace ScheduleMedicControl.Business.Enumeradores
             return base.GetHashCode();
         }
 
-        public int CompareTo(object enumeradorId) => Id.CompareTo(((EnumeradorSeguro)enumeradorId).Id);
+        public int CompareTo(object enumeradorId) => Id.CompareTo(((EnumeradorAbstrato)enumeradorId).Id);
 
     }
 }

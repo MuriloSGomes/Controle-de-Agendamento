@@ -2,7 +2,7 @@
 
 namespace ScheduleMedicControl.Business
 {
-    public class EnumeradorSituacaoAgendamento : EnumeradorSeguro
+    public class EnumeradorSituacaoAgendamento : EnumeradorAbstrato
     {
         public EnumeradorSituacaoAgendamento AguardandoAtendimento = new EnumeradorSituacaoAgendamento(1, "Aguardando Atendimento");
         public EnumeradorSituacaoAgendamento Atendido = new EnumeradorSituacaoAgendamento(2, "Atendido");

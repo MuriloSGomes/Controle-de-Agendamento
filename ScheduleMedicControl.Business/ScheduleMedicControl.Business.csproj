@@ -42,7 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Enumeradores\EnumeradorSeguro.cs" />
+    <Compile Include="Enumeradores\EnumeradorAbstrato.cs" />
     <Compile Include="Enumeradores\EnumeradorSituacaoAgendamento.cs" />
     <Compile Include="Models\Agendamento.cs" />
     <Compile Include="Models\Cliente.cs" />
