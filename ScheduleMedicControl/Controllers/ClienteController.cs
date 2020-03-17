@@ -1,5 +1,6 @@
 ﻿using ScheduleMedicControl.Business.Models;
 using ScheduleMedicControl.DATA.Repositorio;
+using System.Net;
 using System.Web.Mvc;
 
 namespace ScheduleMedicControl.Controllers
@@ -72,9 +73,17 @@ namespace ScheduleMedicControl.Controllers
         // GET: Cliente/Delete/5
         public ActionResult Delete(int id)
         {
-            repositorio.DeletePorId(id);
+            if (id == 0)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
 
-            return Json(repositorio.ObtenhaTodos());
+            Cliente cliente = repositorio.ObtenhaPeloId(id);
+            if (cliente == null)
+            {
+                return HttpNotFound();
+            }
+            return View(cliente);
         }
 
         // POST: Cliente/Delete/5
