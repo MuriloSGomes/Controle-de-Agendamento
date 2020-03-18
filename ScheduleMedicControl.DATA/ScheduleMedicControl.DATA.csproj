@@ -68,6 +68,7 @@
     <Compile Include="Conexao\ConexaoBd.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorio\ClienteRepositorio.cs" />
+    <Compile Include="Repositorio\ClinicaRepositorio.cs" />
     <Compile Include="Repositorio\RepositorioAbstrato.cs" />
   </ItemGroup>
   <ItemGroup>

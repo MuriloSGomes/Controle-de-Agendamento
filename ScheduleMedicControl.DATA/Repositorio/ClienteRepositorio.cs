@@ -109,7 +109,6 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 }
                 catch (Exception e)
                 {
-
                     throw e;
                 }
 

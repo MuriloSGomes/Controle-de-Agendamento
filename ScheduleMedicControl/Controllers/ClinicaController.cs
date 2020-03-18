@@ -1,14 +1,17 @@
 ﻿using ScheduleMedicControl.Business.Models;
 using ScheduleMedicControl.DATA.Repositorio;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
 
 namespace ScheduleMedicControl.Controllers
 {
-    public class ClienteController : Controller
+    public class ClinicaController : Controller
     {
-        private ClienteRepositorio repositorio = new ClienteRepositorio();
-
+        private ClinicaRepositorio repositorio = new ClinicaRepositorio();
         public ActionResult Index()
         {
             return View(repositorio.ObtenhaTodos());
@@ -25,42 +28,43 @@ namespace ScheduleMedicControl.Controllers
         }
 
         [HttpPost]
-        public ActionResult Create(Cliente cliente)
+        public ActionResult Create(Clinica clinica)
         {
             try
             {
-                repositorio.Insira(cliente);
+                repositorio.Insira(clinica);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(cliente);
+                return View();
             }
         }
 
         public ActionResult Edit(int id)
         {
-            var cliente = repositorio.ObtenhaPeloId(id);
+            var clinica = repositorio.ObtenhaPeloId(id);
 
-            if(cliente == null)
+            if (clinica == null)
             {
                 return HttpNotFound();
             }
 
-            return View(cliente);
+            return View(clinica);
         }
 
         [HttpPost]
-        public ActionResult Edit(Cliente cliente)
+        public ActionResult Edit(Clinica clinica)
         {
             try
             {
-                repositorio.Atualiza(cliente);
+                repositorio.Atualiza(clinica);
+
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(cliente);
+                return View(clinica);
             }
         }
 
@@ -71,25 +75,27 @@ namespace ScheduleMedicControl.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Cliente cliente = repositorio.ObtenhaPeloId(id);
-            if (cliente == null)
+            var clinica = repositorio.ObtenhaPeloId(id);
+
+            if(clinica == null)
             {
                 return HttpNotFound();
             }
-            return View(cliente);
+
+            return View(clinica);
         }
 
         [HttpPost]
-        public ActionResult Delete(Cliente cliente)
+        public ActionResult Delete(Clinica clinica)
         {
             try
             {
-                repositorio.Delete(cliente);
+                repositorio.Delete(clinica);
                 return RedirectToAction("Index");
             }
             catch
             {
-                return View(cliente);
+                return View(clinica);
             }
         }
     }

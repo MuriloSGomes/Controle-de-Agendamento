@@ -119,6 +119,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
+    <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -166,6 +167,11 @@
     <Content Include="Views\Cliente\Delete.cshtml" />
     <Content Include="Views\Cliente\Details.cshtml" />
     <Content Include="Views\Cliente\Edit.cshtml" />
+    <Content Include="Views\Clinica\Index.cshtml" />
+    <Content Include="Views\Clinica\Create.cshtml" />
+    <Content Include="Views\Clinica\Edit.cshtml" />
+    <Content Include="Views\Clinica\Details.cshtml" />
+    <Content Include="Views\Clinica\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
