@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ScheduleMedicControl.Business.Models
 {
-    public class Cliente
+    public class Cliente : EntidadeDeNegocio
     {
-        public int Id { get; set; }
-
         [Required(ErrorMessage = "Campo nome é obrigatório")]
         public string Nome { get; set; }
         public string Telefone { get; set; }
@@ -19,5 +17,21 @@ namespace ScheduleMedicControl.Business.Models
         public bool TemConvenio { get; set; }
         public string NumeroConvenio { get; set; }
         public string NomeConvenio { get; set; }
+
+        public override string ToString()
+        {
+            return Nome;
+        }
+
+        public override int GetHashCode()
+        {
+            return Id.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            return (obj is Cliente) && ((Cliente)obj).Id.Equals(this.Id);
+        }
+
     }
 }

@@ -25,7 +25,12 @@ namespace ScheduleMedicControl.Business.Enumeradores
                                              BindingFlags.Static |
                                              BindingFlags.DeclaredOnly);
 
-            return fields.Select(f => f.GetValue(null)).Cast<T>();
+            var test = fields.Select(f => f.GetValue(null)).Cast<T>();
+
+            var temp = test.ToList();
+
+
+            return temp;
         }
 
         public override bool Equals(object enumeradorHerdado)

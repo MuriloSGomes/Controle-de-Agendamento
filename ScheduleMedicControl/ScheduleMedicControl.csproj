@@ -118,6 +118,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AgendamentoController.cs" />
     <Compile Include="Controllers\ClienteController.cs" />
     <Compile Include="Controllers\ClinicaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -172,6 +173,8 @@
     <Content Include="Views\Clinica\Edit.cshtml" />
     <Content Include="Views\Clinica\Details.cshtml" />
     <Content Include="Views\Clinica\Delete.cshtml" />
+    <Content Include="Views\Agendamento\Index.cshtml" />
+    <Content Include="Views\Agendamento\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
