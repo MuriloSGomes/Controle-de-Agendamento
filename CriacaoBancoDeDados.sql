@@ -16,7 +16,7 @@ create Table Cliente (
 
 
 create Table Clinica (
-	clinicaId int not null auto_increment,
+    clinicaId int not null auto_increment,
     clinicaNome varchar(100),
     clinicaCnpj varchar(14),
     clinicaTelefone varchar(13),
@@ -29,7 +29,9 @@ create Table Agendamento (
 	agendamentoId int not null auto_increment,
         agendamentoSituacao char(1),
         agendamentoData date,
+        agendamentoClinicaId int,
+        agendamentoClienteId int,
         primary key (agendamentoId),
-	foreign key (agendamentoId) references cliente(clienteId),
-	foreign key (agendamentoId) references clinica(clinicaId)
+	foreign key (agendamentoClienteId) references cliente(clienteId),
+	foreign key (agendamentoClinicaId) references clinica(clinicaId)
 );
