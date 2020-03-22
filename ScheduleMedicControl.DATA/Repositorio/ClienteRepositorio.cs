@@ -19,6 +19,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 clienteCpf = @clienteCpf, clienteEmail = @clienteEmail, clienteTemConvenio = @clienteTemconvenio,
                                 clienteNumeroConvenio = @clienteNumeroConvenio, clienteNomeConvenio = @clienteNomeConvenio
                                 where clienteId = {cliente.Id}";
+
                 var cmd = new MySqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@clienteNome", cliente.Nome);
                 cmd.Parameters.AddWithValue("@clienteTelefone", cliente.Telefone);

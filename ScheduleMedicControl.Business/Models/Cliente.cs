@@ -22,16 +22,5 @@ namespace ScheduleMedicControl.Business.Models
         {
             return Nome;
         }
-
-        public override int GetHashCode()
-        {
-            return Id.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            return (obj is Cliente) && ((Cliente)obj).Id.Equals(this.Id);
-        }
-
     }
 }

@@ -14,9 +14,9 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public abstract List<T> ObtenhaTodos();
         public abstract T ObtenhaPeloId(TKey id);
-        public abstract void Insira(T entity);
-        public abstract void Atualiza(T entity);
-        public abstract void Delete(T entity);
+        public abstract void Insira(T entidade);
+        public abstract void Atualiza(T entidade);
+        public abstract void Delete(T entidade);
         public abstract void DeletePorId(TKey id);
     }
 }

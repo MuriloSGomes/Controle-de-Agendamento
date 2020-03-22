@@ -1,4 +1,5 @@
 ﻿using ScheduleMedicControl.Business.Models;
+using ScheduleMedicControl.DATA.Repositorio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,12 @@ namespace ScheduleMedicControl.Controllers
 {
     public class AgendamentoController : Controller
     {
-        private Agendamento _agendamento = new Agendamento();
+        private AgendamentoRepositorio _agendamento = new AgendamentoRepositorio();
         public ActionResult Index()
         {
-            var temp = new List<Agendamento>();
-            return View(temp);
+            var test = new Agendamento();
+
+            return View(test);
         }
 
         public ActionResult Details(int id)
