@@ -6,10 +6,6 @@ namespace ScheduleMedicControl.Business.Models
 {
     public class Agendamento : EntidadeDeNegocio
     {
-        [Display(Name = "Situação do Agendamento")]
-        [Required(ErrorMessage = "Selecione ao menos uma situação")]
-        public int SituacaoAgendamento { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Cadastramento")]
@@ -24,13 +20,10 @@ namespace ScheduleMedicControl.Business.Models
         [Display(Name = "Clinica")]
         public int ClinicaId { get; set; }
 
-        public IEnumerable<EnumeradorSituacaoAgendamento> Situacoes { get; set; }
-
         public List<Agendamento> Agendamentos { get; set; }
 
-        public IEnumerable<EnumeradorSituacaoAgendamento> ObtenhaSituacaoAgendamento()
-        {
-            return EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>();
-        }
+        [Display(Name = "Situação")]
+        [Required(ErrorMessage = "Selecione situação")]
+        public EnumeradorSituacaoAgendamento Situacao { get; set; }
     }
 }

@@ -2,41 +2,66 @@
 
 @{
     ViewBag.Title = "Create";
+
+
+}
+
+@{
+    IEnumerable<SelectListItem> ObtenhaSituacao()
+    {
+        var situacoesAgendamento = ScheduleMedicControl.Business.EnumeradorSituacaoAgendamento.ObtenhaTodos<ScheduleMedicControl.Business.EnumeradorSituacaoAgendamento>();
+
+        var itensSituacaoAgendamento = new List<SelectListItem>();
+
+        foreach (var situacao in situacoesAgendamento)
+        {
+            var itemSituacao = new SelectListItem
+            {
+                Text = situacao.Descricao,
+                Value = situacao.Id.ToString(),
+                Selected = (Model != null && Model.Situacao != null && Model.Situacao.Id == situacao.Id)
+            };
+            itensSituacaoAgendamento.Add(itemSituacao);
+        }
+
+        return itensSituacaoAgendamento;
+    }
 }
 
 <h2>Create</h2>
 
-
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Agendamento</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
-        
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Id, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownListFor(model => model.Id, new SelectList(Model.Situacoes,"Id","Descricao","Select"))
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <h4>Agendamento</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Data, htmlAttributes: new { @class = "control-label col-md-2" })
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Data, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Data, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+
+            @Html.LabelFor(model => model.Situacao, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10" style="margin-top:7px">
+                @Html.DropDownListFor(model => model.Situacao.Id, ObtenhaSituacao(), new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Situacao, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10" style="margin-top: 7px">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
         </div>
     </div>
-</div>
 }
 
 <div>

@@ -28,6 +28,15 @@ namespace ScheduleMedicControl.Business.Enumeradores
             return fields.Select(f => f.GetValue(null)).Cast<T>();
         }
 
+        public static T ObtenhaPorId<T>(int codigoSituacao) where T : EnumeradorAbstrato
+        {
+            var todos = ObtenhaTodos<T>();
+
+            var test = todos.Where(x => x.Id == codigoSituacao).FirstOrDefault();
+
+            return test;
+        }
+
         public override bool Equals(object enumeradorHerdado)
         {
             var enumerador = enumeradorHerdado as EnumeradorAbstrato;

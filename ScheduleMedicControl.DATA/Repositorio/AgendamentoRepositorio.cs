@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using ScheduleMedicControl.Business;
 using ScheduleMedicControl.Business.Models;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 where agendamentoId = {agendamento.Id}";
 
                 var cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.SituacaoAgendamento);
+                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao.Id);
                 cmd.Parameters.AddWithValue("@agendamentoData", agendamento.Data);
                 cmd.Parameters.AddWithValue("@agendamentoClinicaId", agendamento.ClinicaId);
                 cmd.Parameters.AddWithValue("@agendamentoClienteId", agendamento.ClienteId);
@@ -55,7 +56,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                             values(@agendamentoSituacao,@agendamentoData,@agendamentoClinicaId,@agendamentoClienteId)";
 
                 var cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.SituacaoAgendamento);
+                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao.Id);
                 cmd.Parameters.AddWithValue("@agendamentoData", agendamento.Data);
                 cmd.Parameters.AddWithValue("@agendamentoClinicaId", agendamento.ClinicaId);
                 cmd.Parameters.AddWithValue("@agendamentoClienteId", agendamento.ClienteId);
@@ -84,7 +85,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                          inner join cliente on clienteId = agendamentoClienteId
                          inner join clinica on clinicaId = agendamentoClinicaId
                          order by agendamentoId";
-                     
+
             using (var con = new MySqlConnection(StringConnection))
             {
                 var cmd = new MySqlCommand(sql, con);
@@ -97,11 +98,12 @@ namespace ScheduleMedicControl.DATA.Repositorio
                     {
                         while (leitor.Read())
                         {
+                            var situacaoId = (int)leitor["situacaoAgendamento"];
                             var agendamento = new Agendamento
                             {
                                 Id = (int)leitor["agendamentoId"],
                                 Data = (DateTime)leitor["agendamentoData"],
-                                SituacaoAgendamento = (int)leitor["agendamentoSituacao"],
+                                Situacao = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>(situacaoId),
                                 ClienteId = (int)leitor["clienteId"],
                                 ClinicaId = (int)leitor["clinicaId"],
                             };
@@ -113,6 +115,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 {
                     throw e;
                 }
+
                 return agendamentos;
             }
         }

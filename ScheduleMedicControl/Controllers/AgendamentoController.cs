@@ -13,9 +13,7 @@ namespace ScheduleMedicControl.Controllers
         private AgendamentoRepositorio _agendamento = new AgendamentoRepositorio();
         public ActionResult Index()
         {
-            var test = new Agendamento();
-
-            return View(test);
+            return View(_agendamento.ObtenhaTodos());
         }
 
         public ActionResult Details(int id)
