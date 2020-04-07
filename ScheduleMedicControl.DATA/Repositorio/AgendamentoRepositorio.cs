@@ -40,12 +40,40 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public override void Delete(Agendamento entidade)
         {
-            throw new NotImplementedException();
+            using (var con = new MySqlConnection(StringConnection))
+            {
+                var sql = $"delete from cliente where agendamentoId = @agendamentoId";
+                var cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@agendamentoId", entidade.Id);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
 
         public override void DeletePorId(int id)
         {
-            throw new NotImplementedException();
+            using (var con = new MySqlConnection(StringConnection))
+            {
+                var sql = $"delete from agendamento where agendamentoId = @agendamentoId";
+                var cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@agendamentoId", id);
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+            }
         }
 
         public override void Insira(Agendamento agendamento)
@@ -76,7 +104,38 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public override Agendamento ObtenhaPeloId(int id)
         {
-            throw new NotImplementedException();
+            using (var con = new MySqlConnection(StringConnection))
+            {
+                var sql = "select * from agendamento where agendamentoId = @agendamentoId";
+                var cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@agendamentoId", id);
+
+                var agendamento = new Agendamento();
+
+                try
+                {
+                    con.Open();
+                    using (var leitor = cmd.ExecuteReader(System.Data.CommandBehavior.CloseConnection))
+                    {
+                        while (leitor.Read())
+                        {
+                            var situacaoId = (int)leitor["situacaoAgendamento"];
+
+                            agendamento.Id = (int)leitor["agendamentoId"];
+                            agendamento.Situacao = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>(situacaoId);
+                            agendamento.Data = (DateTime)leitor["agendamentoData"];
+                            agendamento.ClienteId = (int)leitor["clienteId"];
+                            agendamento.ClinicaId = (int)leitor["clinicaId"];
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
+                return agendamento;
+            }
         }
 
         public override List<Agendamento> ObtenhaTodos()

@@ -37,7 +37,7 @@ namespace ScheduleMedicControl.Controllers
             }
             catch
             {
-                return View();
+                return View(clinica);
             }
         }
 
@@ -59,7 +59,6 @@ namespace ScheduleMedicControl.Controllers
             try
             {
                 repositorio.Atualiza(clinica);
-
                 return RedirectToAction("Index");
             }
             catch
