@@ -20,7 +20,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 where agendamentoId = {agendamento.Id}";
 
                 var cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao.Id);
+                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao);
                 cmd.Parameters.AddWithValue("@agendamentoData", agendamento.Data);
                 cmd.Parameters.AddWithValue("@agendamentoClinicaId", agendamento.ClinicaId);
                 cmd.Parameters.AddWithValue("@agendamentoClienteId", agendamento.ClienteId);
@@ -80,11 +80,11 @@ namespace ScheduleMedicControl.DATA.Repositorio
         {
             using (var con = new MySqlConnection(StringConnection))
             {
-                var sql = @"insert into agendamento(agendamentoSituacao,agendamentoData,agendamentoClinicaId,agendamentoClienteId,
+                var sql = @"insert into agendamento(agendamentoSituacao,agendamentoData,agendamentoClinicaId,agendamentoClienteId)
                             values(@agendamentoSituacao,@agendamentoData,@agendamentoClinicaId,@agendamentoClienteId)";
 
                 var cmd = new MySqlCommand(sql, con);
-                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao.Id);
+                cmd.Parameters.AddWithValue("@agendamentoSituacao", agendamento.Situacao);
                 cmd.Parameters.AddWithValue("@agendamentoData", agendamento.Data);
                 cmd.Parameters.AddWithValue("@agendamentoClinicaId", agendamento.ClinicaId);
                 cmd.Parameters.AddWithValue("@agendamentoClienteId", agendamento.ClienteId);
@@ -106,7 +106,11 @@ namespace ScheduleMedicControl.DATA.Repositorio
         {
             using (var con = new MySqlConnection(StringConnection))
             {
-                var sql = "select * from agendamento where agendamentoId = @agendamentoId";
+                var sql = @"select * from agendamento
+                         inner join cliente on clienteId = agendamentoClienteId
+                         inner join clinica on clinicaId = agendamentoClinicaId
+                         where agendamentoId = @agendamentoId
+                         order by agendamentoId";
                 var cmd = new MySqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@agendamentoId", id);
 
@@ -119,10 +123,8 @@ namespace ScheduleMedicControl.DATA.Repositorio
                     {
                         while (leitor.Read())
                         {
-                            var situacaoId = (int)leitor["situacaoAgendamento"];
-
                             agendamento.Id = (int)leitor["agendamentoId"];
-                            agendamento.Situacao = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>(situacaoId);
+                            agendamento.Situacao = (int)leitor["agendamentoSituacao"];
                             agendamento.Data = (DateTime)leitor["agendamentoData"];
                             agendamento.ClienteId = (int)leitor["clienteId"];
                             agendamento.ClinicaId = (int)leitor["clinicaId"];
@@ -157,12 +159,11 @@ namespace ScheduleMedicControl.DATA.Repositorio
                     {
                         while (leitor.Read())
                         {
-                            var situacaoId = (int)leitor["situacaoAgendamento"];
                             var agendamento = new Agendamento
                             {
                                 Id = (int)leitor["agendamentoId"],
                                 Data = (DateTime)leitor["agendamentoData"],
-                                Situacao = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>(situacaoId),
+                                Situacao = (int)leitor["agendamentoSituacao"],
                                 ClienteId = (int)leitor["clienteId"],
                                 ClinicaId = (int)leitor["clinicaId"],
                             };

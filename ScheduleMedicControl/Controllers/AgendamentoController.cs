@@ -1,4 +1,5 @@
-﻿using ScheduleMedicControl.Business.Models;
+﻿using ScheduleMedicControl.Business;
+using ScheduleMedicControl.Business.Models;
 using ScheduleMedicControl.DATA.Repositorio;
 using System;
 using System.Collections.Generic;
@@ -28,6 +29,8 @@ namespace ScheduleMedicControl.Controllers
         {
             var clientes = _cliente.ObtenhaTodos();
             var clinicas = _clinica.ObtenhaTodos();
+            var tipoSituacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
+            ViewBag.Situacao = tipoSituacao;
             if (clientes != null)
             {
                 ViewBag.data = clientes;

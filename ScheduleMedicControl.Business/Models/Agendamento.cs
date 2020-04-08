@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Web.Mvc;
 
 namespace ScheduleMedicControl.Business.Models
 {
@@ -25,8 +24,6 @@ namespace ScheduleMedicControl.Business.Models
 
         [Display(Name = "Situação")]
         [Required(ErrorMessage = "Selecione situação")]
-        public EnumeradorSituacaoAgendamento Situacao { get; set; }
-
-        public SelectList MyProperty { get; set; }
+        public int Situacao { get; set; }
     }
 }

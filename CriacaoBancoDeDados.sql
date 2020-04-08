@@ -27,7 +27,7 @@ create Table Clinica (
 
 create Table Agendamento (
 	agendamentoId int not null auto_increment,
-        agendamentoSituacao char(1),
+        agendamentoSituacao int,
         agendamentoData date,
         agendamentoClinicaId int,
         agendamentoClienteId int,
