@@ -88,7 +88,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                         while (leitor.Read())
                         {
                             clinica.Nome = leitor["clinicaNome"].ToString();
-                            clinica.CNPJ = leitor["clinicaNome"].ToString();
+                            clinica.CNPJ = leitor["clinicaCnpj"].ToString();
                             clinica.Telefone = leitor["clinicaTelefone"].ToString();
                             clinica.Endereco = leitor["clinicaEndereco"].ToString();
                         }

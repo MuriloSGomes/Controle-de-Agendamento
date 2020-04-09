@@ -38,7 +38,6 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 {
                     throw e;
                 }
-
             }
         }
 

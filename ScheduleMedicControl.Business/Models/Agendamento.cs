@@ -25,5 +25,12 @@ namespace ScheduleMedicControl.Business.Models
         [Display(Name = "Situação")]
         [Required(ErrorMessage = "Selecione situação")]
         public int Situacao { get; set; }
+
+        public EnumeradorSituacaoAgendamento SituacaoAgendamento { get; set; }
+
+        public virtual Cliente Cliente { get; set; }
+
+        public virtual Clinica Clinica { get; set; }
+
     }
 }

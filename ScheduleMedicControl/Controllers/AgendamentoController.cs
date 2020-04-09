@@ -27,19 +27,9 @@ namespace ScheduleMedicControl.Controllers
 
         public ActionResult Create()
         {
-            var clientes = _cliente.ObtenhaTodos();
-            var clinicas = _clinica.ObtenhaTodos();
-            var tipoSituacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
-            ViewBag.Situacao = tipoSituacao;
-            if (clientes != null)
-            {
-                ViewBag.data = clientes;
-            }
-
-            if (clinicas != null)
-            {
-                ViewBag.TotalClinicas = clinicas;
-            }
+            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
+            ViewBag.data = _cliente.ObtenhaTodos();
+            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
 
             return View();
         }
@@ -62,7 +52,7 @@ namespace ScheduleMedicControl.Controllers
         {
             var agendamento = _agendamento.ObtenhaPeloId(id);
 
-            if(agendamento == null)
+            if (agendamento == null)
             {
                 return HttpNotFound();
             }
@@ -86,7 +76,7 @@ namespace ScheduleMedicControl.Controllers
 
         public ActionResult Delete(int id)
         {
-            if(id == 0)
+            if (id == 0)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }

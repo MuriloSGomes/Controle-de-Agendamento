@@ -34,7 +34,6 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 {
                     throw e;
                 }
-
             }
         }
 
@@ -98,7 +97,6 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 {
                     throw e;
                 }
-
             }
         }
 
@@ -111,6 +109,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                          inner join clinica on clinicaId = agendamentoClinicaId
                          where agendamentoId = @agendamentoId
                          order by agendamentoId";
+
                 var cmd = new MySqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@agendamentoId", id);
 
@@ -163,9 +162,17 @@ namespace ScheduleMedicControl.DATA.Repositorio
                             {
                                 Id = (int)leitor["agendamentoId"],
                                 Data = (DateTime)leitor["agendamentoData"],
-                                Situacao = (int)leitor["agendamentoSituacao"],
-                                ClienteId = (int)leitor["clienteId"],
-                                ClinicaId = (int)leitor["clinicaId"],
+                                Cliente = new Cliente
+                                {
+                                    Id = (int)leitor["clienteId"],
+                                    Nome = leitor["clienteNome"].ToString()
+                                },
+                                Clinica = new Clinica
+                                {
+                                    Id = (int)leitor["clinicaId"],
+                                    Nome = leitor["clinicaNome"].ToString()
+                                },
+                                SituacaoAgendamento = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>((int)leitor["agendamentoSituacao"])
                             };
                             agendamentos.Add(agendamento);
                         }
