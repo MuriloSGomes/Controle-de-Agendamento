@@ -38,6 +38,7 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
+                _agendamento.ObtenhaTodos();
                 _validacao.AssineRegrasInclusao();
                 _agendamento.Insira(agendamento);
                 return RedirectToAction("Index");

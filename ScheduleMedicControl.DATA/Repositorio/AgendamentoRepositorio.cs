@@ -175,6 +175,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 SituacaoAgendamento = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>((int)leitor["agendamentoSituacao"])
                             };
                             agendamentos.Add(agendamento);
+                            agendamento.Agendamentos = agendamentos;
                         }
                     }
                 }

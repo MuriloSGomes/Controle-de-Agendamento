@@ -14,12 +14,13 @@ namespace ScheduleMedicControl.Business.Validadores
 
         public override void AssineRegrasInclusao()
         {
-            RuleFor(entidade=>entidade.ClienteId).Must
-        }
-
-        private bool PacienteAgendado(int codigo)
-        {
-            return new AgendamentoRepositorio
+            RuleFor(entidade => entidade.Agendamentos).Custom((list, context) =>
+            {
+                if (list == null)
+                {
+                    context.AddFailure("The list must contain 10 items or fewer");
+                }
+            });
         }
     }
 }
