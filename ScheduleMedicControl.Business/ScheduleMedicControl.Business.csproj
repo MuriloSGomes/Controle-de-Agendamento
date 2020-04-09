@@ -77,6 +77,7 @@
   <ItemGroup>
     <Compile Include="Enumeradores\EnumeradorAbstrato.cs" />
     <Compile Include="Enumeradores\EnumeradorSituacaoAgendamento.cs" />
+    <Compile Include="Interfaces\IValidador.cs" />
     <Compile Include="Models\Agendamento.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Clinica.cs" />
@@ -84,6 +85,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validadores\ValidacaoAbstrato.cs" />
     <Compile Include="Validadores\ValidacaoCadastro.cs" />
+    <Compile Include="Validadores\ValidacaoException.cs" />
     <Compile Include="Validadores\ValidacaoPaciente.cs" />
   </ItemGroup>
   <ItemGroup>
