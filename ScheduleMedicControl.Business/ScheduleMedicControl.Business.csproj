@@ -84,9 +84,9 @@
     <Compile Include="Models\EntidadeDeNegocio.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Validadores\ValidacaoAbstrato.cs" />
+    <Compile Include="Validadores\ValidacaoAgendamento.cs" />
     <Compile Include="Validadores\ValidacaoCadastro.cs" />
     <Compile Include="Validadores\ValidacaoException.cs" />
-    <Compile Include="Validadores\ValidacaoPaciente.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

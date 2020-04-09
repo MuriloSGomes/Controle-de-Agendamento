@@ -1,17 +1,16 @@
 ﻿using ScheduleMedicControl.Business;
 using ScheduleMedicControl.Business.Models;
+using ScheduleMedicControl.Business.Validadores;
 using ScheduleMedicControl.DATA.Repositorio;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ScheduleMedicControl.Controllers
 {
     public class AgendamentoController : Controller
     {
+        private ValidacaoAgendamento _validacao = new ValidacaoAgendamento();
         private AgendamentoRepositorio _agendamento = new AgendamentoRepositorio();
         private ClienteRepositorio _cliente = new ClienteRepositorio();
         private ClinicaRepositorio _clinica = new ClinicaRepositorio();
@@ -39,6 +38,7 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
+                _validacao.AssineRegrasInclusao();
                 _agendamento.Insira(agendamento);
                 return RedirectToAction("Index");
             }
