@@ -9,6 +9,7 @@ namespace ScheduleMedicControl.Business.Models
 {
     public class Cliente : EntidadeDeNegocio
     {
+        [Display(Name = "Cliente")]
         [Required(ErrorMessage = "Campo nome é obrigatório")]
         public string Nome { get; set; }
         public string Telefone { get; set; }

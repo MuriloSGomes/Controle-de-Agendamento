@@ -16,7 +16,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
             using (var con = new MySqlConnection(StringConnection))
             {
                 string sql = $@"update agendamento set agendamentoSituacao = @agendamentoSituacao, agendamentoData = @agendamentoData,
-                                agendamentoClinicaId = @agendamentoClinicaId, agendamentoClienteId = @agendamentoClienteId,
+                                agendamentoClinicaId = @agendamentoClinicaId, agendamentoClienteId = @agendamentoClienteId
                                 where agendamentoId = {agendamento.Id}";
 
                 var cmd = new MySqlCommand(sql, con);
@@ -41,7 +41,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
         {
             using (var con = new MySqlConnection(StringConnection))
             {
-                var sql = $"delete from cliente where agendamentoId = @agendamentoId";
+                var sql = $"delete from agendamento where agendamentoId = @agendamentoId";
                 var cmd = new MySqlCommand(sql, con);
                 cmd.Parameters.AddWithValue("@agendamentoId", entidade.Id);
                 try
@@ -114,6 +114,8 @@ namespace ScheduleMedicControl.DATA.Repositorio
                 cmd.Parameters.AddWithValue("@agendamentoId", id);
 
                 var agendamento = new Agendamento();
+                var clinica = new Clinica();
+                var cliente = new Cliente();
 
                 try
                 {
@@ -125,8 +127,26 @@ namespace ScheduleMedicControl.DATA.Repositorio
                             agendamento.Id = (int)leitor["agendamentoId"];
                             agendamento.Situacao = (int)leitor["agendamentoSituacao"];
                             agendamento.Data = (DateTime)leitor["agendamentoData"];
-                            agendamento.ClienteId = (int)leitor["clienteId"];
-                            agendamento.ClinicaId = (int)leitor["clinicaId"];
+                            agendamento.Cliente = new Cliente()
+                            {
+                                Id = (int)leitor["clienteId"],
+                                Nome = leitor["clienteNome"].ToString(),
+                                Cpf = leitor["clienteCpf"].ToString(),
+                                Email = leitor["clienteEmail"].ToString(),
+                                NomeConvenio = leitor["clienteNomeConvenio"].ToString(),
+                                NumeroConvenio = leitor["clienteNumeroConvenio"].ToString(),
+                                Telefone = leitor["clienteTelefone"].ToString(),
+                                TemConvenio = (bool)leitor["clienteTemConvenio"],
+                            };
+                            agendamento.Clinica = new Clinica()
+                            {
+                                Id = (int)leitor["clinicaId"],
+                                Nome = leitor["clinicaNome"].ToString(),
+                                CNPJ = leitor["clinicaCnpj"].ToString(),
+                                Telefone = leitor["clinicaTelefone"].ToString(),
+                                Endereco = leitor["clinicaEndereco"].ToString(),
+                            };
+                            agendamento.SituacaoAgendamento = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>((int)leitor["agendamentoSituacao"]);
                         }
                     }
                 }

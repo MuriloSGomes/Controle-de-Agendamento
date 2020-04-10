@@ -1,7 +1,8 @@
 ﻿using FluentValidation;
+using ScheduleMedicControl.Business.Interfaces;
 using ScheduleMedicControl.Business.Models;
 using System;
-
+using System.Linq;
 
 namespace ScheduleMedicControl.Business.Validadores
 {
@@ -14,13 +15,7 @@ namespace ScheduleMedicControl.Business.Validadores
 
         public override void AssineRegrasInclusao()
         {
-            RuleFor(entidade => entidade.Agendamentos).Custom((list, context) =>
-            {
-                if (list == null)
-                {
-                    context.AddFailure("The list must contain 10 items or fewer");
-                }
-            });
+            RuleFor(cliente => cliente.Cliente).NotNull().WithMessage("temp");
         }
     }
 }

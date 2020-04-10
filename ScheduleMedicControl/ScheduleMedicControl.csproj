@@ -187,6 +187,9 @@
     <Content Include="Views\Clinica\Delete.cshtml" />
     <Content Include="Views\Agendamento\Index.cshtml" />
     <Content Include="Views\Agendamento\Create.cshtml" />
+    <Content Include="Views\Agendamento\Edit.cshtml" />
+    <Content Include="Views\Agendamento\Details.cshtml" />
+    <Content Include="Views\Agendamento\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

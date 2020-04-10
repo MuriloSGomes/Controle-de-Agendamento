@@ -2,6 +2,7 @@
 using ScheduleMedicControl.Business.Models;
 using ScheduleMedicControl.Business.Validadores;
 using ScheduleMedicControl.DATA.Repositorio;
+using System;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -10,8 +11,9 @@ namespace ScheduleMedicControl.Controllers
 {
     public class AgendamentoController : Controller
     {
-        private ValidacaoAgendamento _validacao = new ValidacaoAgendamento();
+
         private AgendamentoRepositorio _agendamento = new AgendamentoRepositorio();
+        private ValidacaoAgendamento _validacao = new ValidacaoAgendamento();
         private ClienteRepositorio _cliente = new ClienteRepositorio();
         private ClinicaRepositorio _clinica = new ClinicaRepositorio();
         public ActionResult Index()
@@ -26,9 +28,7 @@ namespace ScheduleMedicControl.Controllers
 
         public ActionResult Create()
         {
-            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
-            ViewBag.data = _cliente.ObtenhaTodos();
-            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
+            MonteViewBag();
 
             return View();
         }
@@ -38,25 +38,35 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
-                _agendamento.ObtenhaTodos();
+                agendamento.Agendamentos = _agendamento.ObtenhaTodos();
                 _validacao.AssineRegrasInclusao();
+                _validacao.Valide(agendamento);
                 _agendamento.Insira(agendamento);
                 return RedirectToAction("Index");
             }
-            catch
+            catch (ValidacaoException ex)
             {
-                return View(agendamento);
+                MonteViewBag();
+                ViewBag.Message = ex.Errors.FirstOrDefault().ErrorMessage;
+                return View();
             }
+        }
+
+        private void MonteViewBag()
+        {
+            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
+            ViewBag.data = _cliente.ObtenhaTodos();
+            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
         }
 
         public ActionResult Edit(int id)
         {
             var agendamento = _agendamento.ObtenhaPeloId(id);
+            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
+            ViewBag.data = _cliente.ObtenhaTodos();
+            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
 
-            if (agendamento == null)
-            {
-                return HttpNotFound();
-            }
+            if (agendamento == null) return HttpNotFound();
 
             return View(agendamento);
         }
@@ -64,6 +74,10 @@ namespace ScheduleMedicControl.Controllers
         [HttpPost]
         public ActionResult Edit(Agendamento agendamento)
         {
+            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
+            ViewBag.data = _cliente.ObtenhaTodos();
+            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
+
             try
             {
                 _agendamento.Atualiza(agendamento);
@@ -77,12 +91,11 @@ namespace ScheduleMedicControl.Controllers
 
         public ActionResult Delete(int id)
         {
-            if (id == 0)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            var t = _agendamento.ObtenhaPeloId(id);
 
-            return View();
+            if (id == 0) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            return View(t);
         }
 
         [HttpPost]
