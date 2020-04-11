@@ -99,7 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="Grid.mvc.readme" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
