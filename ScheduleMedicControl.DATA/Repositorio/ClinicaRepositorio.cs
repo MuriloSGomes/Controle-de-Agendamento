@@ -1,4 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
+using ScheduleMedicControl.Business;
 using ScheduleMedicControl.Business.Models;
 using System;
 using System.Collections.Generic;
@@ -105,7 +106,8 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public override List<Clinica> ObtenhaTodos()
         {
-            var sql = "select * from clinica order by clinicaNome";
+            var sql = @"select * from clinica 
+                        left join agendamento on agendamentoClinicaId = clinicaId order by clinicaNome";
 
             using (var con = new MySqlConnection(StringConnection))
             {
@@ -126,6 +128,15 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 CNPJ = leitor["clinicaCnpj"].ToString(),
                                 Telefone = leitor["clinicaTelefone"].ToString(),
                                 Endereco = leitor["clinicaEndereco"].ToString(),
+                                Agendamento = new Agendamento
+                                {
+                                    Clinica = new Clinica
+                                    {
+                                        Id = (int)leitor["clinicaId"],
+                                        Nome = leitor["clinicaNome"].ToString()
+                                    },
+                                    SituacaoAgendamento = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>((int)leitor["agendamentoSituacao"])
+                                }
                             };
                             clinicas.Add(clinica);
                         }

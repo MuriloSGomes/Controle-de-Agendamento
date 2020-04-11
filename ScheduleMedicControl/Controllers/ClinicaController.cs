@@ -11,15 +11,19 @@ namespace ScheduleMedicControl.Controllers
 {
     public class ClinicaController : Controller
     {
-        private ClinicaRepositorio repositorio = new ClinicaRepositorio();
+        private ClinicaRepositorio _repositorio = new ClinicaRepositorio();
         public ActionResult Index()
         {
-            return View(repositorio.ObtenhaTodos());
+            var temp = _repositorio.ObtenhaTodos();
+
+
+
+            return View(_repositorio.ObtenhaTodos());
         }
 
         public ActionResult Details(int id)
         {
-            return View(repositorio.ObtenhaPeloId(id));
+            return View(_repositorio.ObtenhaPeloId(id));
         }
 
         public ActionResult Create()
@@ -32,7 +36,7 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
-                repositorio.Insira(clinica);
+                _repositorio.Insira(clinica);
                 return RedirectToAction("Index");
             }
             catch
@@ -43,7 +47,7 @@ namespace ScheduleMedicControl.Controllers
 
         public ActionResult Edit(int id)
         {
-            var clinica = repositorio.ObtenhaPeloId(id);
+            var clinica = _repositorio.ObtenhaPeloId(id);
 
             if (clinica == null)
             {
@@ -58,7 +62,7 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
-                repositorio.Atualiza(clinica);
+                _repositorio.Atualiza(clinica);
                 return RedirectToAction("Index");
             }
             catch
@@ -74,7 +78,7 @@ namespace ScheduleMedicControl.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var clinica = repositorio.ObtenhaPeloId(id);
+            var clinica = _repositorio.ObtenhaPeloId(id);
 
             if(clinica == null)
             {
@@ -89,7 +93,7 @@ namespace ScheduleMedicControl.Controllers
         {
             try
             {
-                repositorio.Delete(clinica);
+                _repositorio.Delete(clinica);
                 return RedirectToAction("Index");
             }
             catch

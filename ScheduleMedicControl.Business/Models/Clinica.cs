@@ -15,6 +15,10 @@ namespace ScheduleMedicControl.Business.Models
         public string Telefone { get; set; }
         public string Endereco { get; set; }
 
+        public Agendamento Agendamento { get; set; }
+
+        public int Vagas { get; set; }
+
         public override string ToString()
         {
             return Nome;

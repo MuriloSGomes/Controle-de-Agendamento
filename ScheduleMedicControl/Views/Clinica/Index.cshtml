@@ -1,5 +1,12 @@
 ﻿@model IEnumerable<ScheduleMedicControl.Business.Models.Clinica>
 
+@using GridMvc.Html
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<link href="@Url.Content("~/Content/Gridmvc.css")" rel="stylesheet" type="text/css" />
+<script src="@Url.Content("~/Scripts/gridmvc.min.js")" type="text/javascript"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -9,43 +16,18 @@
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Nome)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CNPJ)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Telefone)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Endereco)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Nome)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CNPJ)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Telefone)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Endereco)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
-}
+<div class="row">
+    @Html.Grid(Model).Columns(columns =>
+{
+    columns.Add(foo => foo.Nome).Titled("Nome");
+    columns.Add(foo => foo.CNPJ).Titled("Cnpj");
+    columns.Add(foo => foo.Telefone).Titled("Telefone").Sortable(true);
+    columns.Add(foo => foo.Endereco).Titled("Endereço").Sortable(true);
+    columns.Add().Encoded(false).Sanitized(false).RenderValueAs(edit => Html.ActionLink("Edit", "Edit", new { id = edit.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
+    columns.Add().Encoded(false).Sanitized(false).RenderValueAs(details => Html.ActionLink("Details", "Details", new { id = details.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
+    columns.Add().Encoded(false).Sanitized(false).RenderValueAs(delete => Html.ActionLink("Delete", "Delete", new { id = delete.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
+}).WithPaging(5)
+</div>
 
-</table>
+

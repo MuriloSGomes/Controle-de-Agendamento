@@ -80,6 +80,8 @@ namespace ScheduleMedicControl.Controllers
 
             try
             {
+                _validacao.AssineRegrasInclusao(agendamento);
+                _validacao.Valide(agendamento);
                 _agendamento.Atualiza(agendamento);
                 return RedirectToAction("Index");
             }
