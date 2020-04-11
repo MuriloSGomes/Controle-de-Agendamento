@@ -1,6 +1,5 @@
 ﻿using MySql.Data.MySqlClient;
 using ScheduleMedicControl.Business.Models;
-using ScheduleMedicControl.DATA.Conexao;
 using System;
 using System.Collections.Generic;
 using System.Linq;
