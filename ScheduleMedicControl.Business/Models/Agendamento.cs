@@ -32,5 +32,13 @@ namespace ScheduleMedicControl.Business.Models
 
         public virtual Clinica Clinica { get; set; }
 
+        public string DataFormatada
+        {
+            get
+            {
+                return Data.ToString("dd/MM/yyyy");
+            }
+        }
+
     }
 }
