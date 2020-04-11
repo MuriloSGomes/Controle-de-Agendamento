@@ -85,10 +85,6 @@
     <Compile Include="Repositorio\RepositorioAbstrato.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\ScheduleMedicControl.Business\ScheduleMedicControl.Business.csproj">
       <Project>{830B2E16-BD99-4C1D-8E85-D44186671CBE}</Project>
       <Name>ScheduleMedicControl.Business</Name>
