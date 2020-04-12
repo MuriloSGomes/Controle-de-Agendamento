@@ -16,7 +16,13 @@ namespace ScheduleMedicControl.Controllers
         {
             var temp = _repositorio.ObtenhaTodos();
 
+            return View(_repositorio.ObtenhaTodos());
+        }
 
+        [HttpPost]
+        public ActionResult VagasNaData(DateTime data)
+        {
+            var temp = _repositorio.ObtenhaTodos();
 
             return View(_repositorio.ObtenhaTodos());
         }

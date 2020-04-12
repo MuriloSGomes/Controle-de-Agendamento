@@ -39,9 +39,14 @@ namespace ScheduleMedicControl.Controllers
             try
             {
                 agendamento.Agendamentos = _agendamento.ObtenhaTodos();
+
                 _validacao.AssineRegrasInclusao(agendamento);
                 _validacao.Valide(agendamento);
                 _agendamento.Insira(agendamento);
+
+                var vagas = agendamento.QuantidadeDeVagasDisponiveis(agendamento);
+                _clinica.AtualizaQuantidadeDeVagas(agendamento.ClinicaId, vagas);
+
                 return RedirectToAction("Index");
             }
             catch (ValidacaoException ex)
@@ -62,9 +67,7 @@ namespace ScheduleMedicControl.Controllers
         public ActionResult Edit(int id)
         {
             var agendamento = _agendamento.ObtenhaPeloId(id);
-            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
-            ViewBag.data = _cliente.ObtenhaTodos();
-            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
+            MonteViewBag();
 
             if (agendamento == null) return HttpNotFound();
 
@@ -74,9 +77,7 @@ namespace ScheduleMedicControl.Controllers
         [HttpPost]
         public ActionResult Edit(Agendamento agendamento)
         {
-            ViewBag.Situacao = EnumeradorSituacaoAgendamento.ObtenhaTodos<EnumeradorSituacaoAgendamento>().ToList();
-            ViewBag.data = _cliente.ObtenhaTodos();
-            ViewBag.TotalClinicas = _clinica.ObtenhaTodos();
+            MonteViewBag();
 
             try
             {

@@ -33,6 +33,30 @@ namespace ScheduleMedicControl.DATA.Repositorio
             }
         }
 
+        public void AtualizaQuantidadeDeVagas(int clinicaId, int vagas)
+        {
+            using (var con = new MySqlConnection(StringConnection))
+            {
+                string sql = $@"update clinica set clinicaVagas = @clinicaVagas where clinicaId = {clinicaId}";
+
+
+
+                var cmd = new MySqlCommand(sql, con);
+
+                try
+                {
+                    con.Open();
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    throw e;
+                }
+
+            }
+        }
+
+
         public override void Delete(Clinica clinica)
         {
             using (var con = new MySqlConnection(StringConnection))
@@ -106,8 +130,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public override List<Clinica> ObtenhaTodos()
         {
-            var sql = @"select * from clinica 
-                        left join agendamento on agendamentoClinicaId = clinicaId order by clinicaNome";
+            var sql = @"select * from clinica order by clinicaNome";
 
             using (var con = new MySqlConnection(StringConnection))
             {
@@ -128,15 +151,6 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 CNPJ = leitor["clinicaCnpj"].ToString(),
                                 Telefone = leitor["clinicaTelefone"].ToString(),
                                 Endereco = leitor["clinicaEndereco"].ToString(),
-                                Agendamento = new Agendamento
-                                {
-                                    Clinica = new Clinica
-                                    {
-                                        Id = (int)leitor["clinicaId"],
-                                        Nome = leitor["clinicaNome"].ToString()
-                                    },
-                                    SituacaoAgendamento = EnumeradorSituacaoAgendamento.ObtenhaPorId<EnumeradorSituacaoAgendamento>((int)leitor["agendamentoSituacao"])
-                                }
                             };
                             clinicas.Add(clinica);
                         }

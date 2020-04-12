@@ -11,7 +11,18 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Clinicas</h2>
+
+@using (Html.BeginForm("VagasNaData", "Clinica", FormMethod.Post, htmlAttributes: new { @class = "form-inline", id = "formDetails" }))
+{
+    <div class="form-group">
+        <label id="ReportBeginDate">Quantidade de vagas nesta data: </label>
+        <input type="date" id="BeginDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        <input style="margin:5px" id="submit" type="submit" value="Submit" class="btn btn-primary pull-right" />
+    </div>
+
+}
+
 
 <p>
     @Html.ActionLink("Create New", "Create")

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace ScheduleMedicControl.Business.Models
 {
@@ -9,7 +10,7 @@ namespace ScheduleMedicControl.Business.Models
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "Data de Cadastramento")]
-        [Required(ErrorMessage ="Selecione a data do agendamento")]
+        [Required(ErrorMessage = "Selecione a data do agendamento")]
         public DateTime Data { get; set; }
 
         [Display(Name = "Cliente")]
@@ -38,6 +39,21 @@ namespace ScheduleMedicControl.Business.Models
             {
                 return Data.ToString("dd/MM/yyyy");
             }
+        }
+
+        public int QuantidadeDeVagasDisponiveis(Agendamento agendamento)
+        {
+            var agendamentosCadastrados = this.Agendamentos;
+            var vagas = 20;
+
+            if (agendamentosCadastrados.Exists(a => a.ClinicaId == agendamento.ClinicaId && a.DataFormatada == agendamento.DataFormatada))
+            {
+                var agendamentoIgual = agendamentosCadastrados.Select(x => x.ClinicaId == agendamento.ClinicaId && x.DataFormatada == agendamento.DataFormatada);
+
+                vagas = vagas - agendamentoIgual.Count();
+            }
+
+            return vagas;
         }
 
     }

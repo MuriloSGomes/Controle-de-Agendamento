@@ -15,7 +15,10 @@ namespace ScheduleMedicControl.Business.Validadores
 
         public override void AssineRegrasInclusao(Agendamento agendamento)
         {
-            RuleFor(cliente => cliente.Agendamentos).Must(x => x.Exists(y=>y.Cliente.Id != agendamento.ClienteId)).WithMessage("Paciente ja possui cadastro nessa clinica");
+            if (agendamento.Agendamentos.Any())
+            {
+                RuleFor(cliente => cliente.Agendamentos).Must(x => x.Exists(y => y.Cliente.Id != agendamento.ClienteId)).WithMessage("Paciente ja possui cadastro nessa clinica");
+            }
         }
     }
 }
