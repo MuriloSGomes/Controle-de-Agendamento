@@ -21,6 +21,7 @@ create Table Clinica (
     clinicaCnpj varchar(14),
     clinicaTelefone varchar(13),
     clinicaEndereco varchar(150),
+    clinicaVagas int,
     primary key (clinicaId)
 );
 
