@@ -37,11 +37,10 @@ namespace ScheduleMedicControl.DATA.Repositorio
         {
             using (var con = new MySqlConnection(StringConnection))
             {
-                string sql = $@"update clinica set clinicaVagas = @clinicaVagas where clinicaId = {clinicaId}";
-
-
+                var sql = $@"update clinica set clinicaVagas = @clinicaVagas where clinicaId = {clinicaId}";
 
                 var cmd = new MySqlCommand(sql, con);
+                cmd.Parameters.AddWithValue("@clinicaVagas", vagas);
 
                 try
                 {
@@ -130,7 +129,8 @@ namespace ScheduleMedicControl.DATA.Repositorio
 
         public override List<Clinica> ObtenhaTodos()
         {
-            var sql = @"select * from clinica order by clinicaNome";
+            var sql = @"select clinicaId,clinicaNome,clinicaCnpj,clinicaTelefone,clinicaEndereco,clinicaVagas
+                        from clinica order by clinicaNome";
 
             using (var con = new MySqlConnection(StringConnection))
             {
@@ -144,6 +144,18 @@ namespace ScheduleMedicControl.DATA.Repositorio
                     {
                         while (leitor.Read())
                         {
+                            var vagas = 0;
+                            var clinicaVaga = leitor["clinicaVagas"].ToString();
+
+                            if(clinicaVaga == string.Empty)
+                            {
+                                vagas = 20;
+                            }
+                            else
+                            {
+                                vagas = (int)leitor["clinicaVagas"];
+                            }
+
                             var clinica = new Clinica
                             {
                                 Id = (int)leitor["clinicaId"],
@@ -151,6 +163,7 @@ namespace ScheduleMedicControl.DATA.Repositorio
                                 CNPJ = leitor["clinicaCnpj"].ToString(),
                                 Telefone = leitor["clinicaTelefone"].ToString(),
                                 Endereco = leitor["clinicaEndereco"].ToString(),
+                                Vagas = vagas
                             };
                             clinicas.Add(clinica);
                         }

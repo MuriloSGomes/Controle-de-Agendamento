@@ -14,7 +14,7 @@ namespace ScheduleMedicControl.Business.Models
         public string CNPJ { get; set; }
         public string Telefone { get; set; }
         public string Endereco { get; set; }
-        public int Vagas { get; set; }
+        public int? Vagas { get; set; }
 
         public override string ToString()
         {

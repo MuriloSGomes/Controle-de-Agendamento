@@ -46,9 +46,9 @@ namespace ScheduleMedicControl.Business.Models
             var agendamentosCadastrados = this.Agendamentos;
             var vagas = 20;
 
-            if (agendamentosCadastrados.Exists(a => a.ClinicaId == agendamento.ClinicaId && a.DataFormatada == agendamento.DataFormatada))
+            if (agendamentosCadastrados.Exists(a => a.Clinica.Id == agendamento.ClinicaId))
             {
-                var agendamentoIgual = agendamentosCadastrados.Select(x => x.ClinicaId == agendamento.ClinicaId && x.DataFormatada == agendamento.DataFormatada);
+                var agendamentoIgual = agendamentosCadastrados.Select(x => x.Clinica.Id == agendamento.ClinicaId);
 
                 vagas = vagas - agendamentoIgual.Count();
             }

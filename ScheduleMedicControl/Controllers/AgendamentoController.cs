@@ -44,6 +44,8 @@ namespace ScheduleMedicControl.Controllers
                 _validacao.Valide(agendamento);
                 _agendamento.Insira(agendamento);
 
+                var test = _agendamento.ObtenhaPeloId(agendamento.ClinicaId);
+
                 var vagas = agendamento.QuantidadeDeVagasDisponiveis(agendamento);
                 _clinica.AtualizaQuantidadeDeVagas(agendamento.ClinicaId, vagas);
 
@@ -81,8 +83,6 @@ namespace ScheduleMedicControl.Controllers
 
             try
             {
-                _validacao.AssineRegrasInclusao(agendamento);
-                _validacao.Valide(agendamento);
                 _agendamento.Atualiza(agendamento);
                 return RedirectToAction("Index");
             }

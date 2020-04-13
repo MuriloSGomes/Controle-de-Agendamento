@@ -20,11 +20,11 @@ namespace ScheduleMedicControl.Controllers
         }
 
         [HttpPost]
-        public ActionResult VagasNaData(DateTime data)
+        public ActionResult VagasNaData(DateTime? data)
         {
             var temp = _repositorio.ObtenhaTodos();
 
-            return View(_repositorio.ObtenhaTodos());
+            return RedirectToAction("Index");
         }
 
         public ActionResult Details(int id)

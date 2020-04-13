@@ -32,9 +32,7 @@ namespace ScheduleMedicControl.Business.Enumeradores
         {
             var todos = ObtenhaTodos<T>();
 
-            var test = todos.Where(x => x.Id == codigoSituacao).FirstOrDefault();
-
-            return test;
+            return todos.Where(x => x.Id == codigoSituacao).FirstOrDefault();
         }
 
         public override bool Equals(object enumeradorHerdado)

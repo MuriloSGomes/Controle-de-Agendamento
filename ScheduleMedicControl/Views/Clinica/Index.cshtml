@@ -18,7 +18,7 @@
     <div class="form-group">
         <label id="ReportBeginDate">Quantidade de vagas nesta data: </label>
         <input type="date" id="BeginDate" value="@DateTime.Today.ToString("yyyy-MM-dd")" />
-        <input style="margin:5px" id="submit" type="submit" value="Submit" class="btn btn-primary pull-right" />
+        <input style="margin:5px" type="submit" value="Submit" class="btn btn-primary pull-right" />
     </div>
 
 }
@@ -35,6 +35,7 @@
     columns.Add(foo => foo.CNPJ).Titled("Cnpj");
     columns.Add(foo => foo.Telefone).Titled("Telefone").Sortable(true);
     columns.Add(foo => foo.Endereco).Titled("Endereço").Sortable(true);
+    columns.Add(foo => foo.Vagas).Titled("Vagas");
     columns.Add().Encoded(false).Sanitized(false).RenderValueAs(edit => Html.ActionLink("Edit", "Edit", new { id = edit.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
     columns.Add().Encoded(false).Sanitized(false).RenderValueAs(details => Html.ActionLink("Details", "Details", new { id = details.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
     columns.Add().Encoded(false).Sanitized(false).RenderValueAs(delete => Html.ActionLink("Delete", "Delete", new { id = delete.Id }, new { @class = "btn btn-info fa fa-pencil" }).ToHtmlString());
